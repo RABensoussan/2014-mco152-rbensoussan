@@ -23,7 +23,7 @@ public class WeatherFrame extends JFrame {
 		Container container = getContentPane();
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 
-		CurrentWeather curr = new CurrentWeather();
+		/*CurrentWeather curr = new CurrentWeather();
 		WeatherNow now = curr.getWeatherNow();
 		
 		JLabel title = new JLabel("Weather in Brooklyn");
@@ -57,10 +57,14 @@ public class WeatherFrame extends JFrame {
 		container.add(min);
 		JLabel max = new JLabel("Temp Max: " + now.getMain().getTempMax());
 		max.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-		container.add(max);
+		container.add(max);*/
 
-		//Weather[] weather = new Weather[](now.getWeather());
-
+		WeatherDownloadThread thread = new WeatherDownloadThread();
+		//to run a thread, you do not call run. you call thread.start()
+		thread.start();
+		
+		
+		
 	}
 
 	public static void main(String args[]) throws IOException {
