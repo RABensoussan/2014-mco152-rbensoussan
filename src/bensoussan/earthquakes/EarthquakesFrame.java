@@ -1,11 +1,11 @@
 package bensoussan.earthquakes;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.io.IOException;
-
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
 
 public class EarthquakesFrame extends JFrame{
 
@@ -13,18 +13,21 @@ public class EarthquakesFrame extends JFrame{
 
 	public EarthquakesFrame() throws IOException{
 		
-		setSize(400, 400);
+		setSize(400, 200);
 		setTitle("Significant Earthquakes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 
 		GenerateEarthquakes gen = new GenerateEarthquakes();
 		Earthquakes eqs = gen.getEarthquakes();
-		
+		Earthquake[] eqsArray = eqs.getFeatures();
+		JList<Earthquake> eqslist = new JList<Earthquake>(eqsArray);
+		eqslist.setLayoutOrientation(JList.VERTICAL);
+		eqslist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		Container container = getContentPane();
-		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
-		container.add(new JLabel(eqs.toString()));
+		container.setLayout(new BorderLayout());
+		container.add(eqslist);
 		
 	}
 	

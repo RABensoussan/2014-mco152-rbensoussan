@@ -12,6 +12,7 @@ public class Earthquake {
 		StringBuilder info = new StringBuilder();
 		info.append("Place: ");
 		info.append(properties.getPlace());
+		info.append(" ");
 		info.append("Magnitude: ");
 		info.append(properties.getMag());
 		return info.toString();

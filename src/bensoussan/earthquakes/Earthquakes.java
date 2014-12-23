@@ -12,6 +12,10 @@ public class Earthquakes {
 		return features[i];
 	}
 	
+	public Earthquake[] getFeatures(){
+		return features;
+	}
+	
 	public String toString(){
 		StringBuilder info = new StringBuilder();
 		for(Earthquake a: features){
