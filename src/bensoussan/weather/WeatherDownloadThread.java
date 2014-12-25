@@ -5,12 +5,18 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.swing.JLabel;
+
+import org.apache.commons.io.IOUtils;
+
 import com.google.gson.Gson;
 
 public class WeatherDownloadThread extends Thread {
 
-	public WeatherDownloadThread() {
-
+	private WeatherFrame frame;
+	
+	public WeatherDownloadThread(WeatherFrame frame) {
+		this.frame = frame;
 	}
 
 	@Override
@@ -23,18 +29,15 @@ public class WeatherDownloadThread extends Thread {
 					"http://api.openweathermap.org/data/2.5/weather?q=Brooklyn&units=imperial");
 			URLConnection connection = url.openConnection();
 			InputStream in = connection.getInputStream();
-			byte b[] = new byte[4096];
-			int n = 1;
-			StringBuilder builder = new StringBuilder();
-			while ((n = in.read(b)) != -1) {
-				builder.append(new String(b, 0, n));
-			}
-			String json = builder.toString();
+			String json = IOUtils.toString(in);
 			Gson gson = new Gson();
 			WeatherNow now = gson.fromJson(json, WeatherNow.class);
-
+			frame.displayWeather(now);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+
+
 }

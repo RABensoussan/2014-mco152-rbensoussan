@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.JList;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
-public class MyCellRenderer extends JTextArea implements ListCellRenderer<String> {
+public class MyCellRenderer extends JTextArea implements
+		ListCellRenderer<String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,11 +19,12 @@ public class MyCellRenderer extends JTextArea implements ListCellRenderer<String
 		setOpaque(true);
 		setLineWrap(true);
 		setWrapStyleWord(true);
-		setSize(500, 20);
-		setMargin(new Insets(5, 5, 5, 5));
-		setFont(new Font("Arial", Font.BOLD, 14));
+		setPreferredSize(new Dimension(10, 60));
+		setFont(new Font("Constantia", Font.PLAIN, 14));
+		setBorder(BorderFactory.createEtchedBorder());
+		setMargin(new Insets(10, 10, 10, 10));
+		//setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	}
-
 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends String> list,

@@ -14,7 +14,7 @@ public class News {
 	public News() {
 	}
 
-	public NYTimes getNews() throws IOException {
+	public NYTimes getNews() {
 		String urlbeg = "http://api.nytimes.com/svc/search/v2/articlesearch.json?callback=svc_search_v2_articlesearch";
 		String urlend = "&api-key=a09bd13fb9e3628ae900642f9f6a9dc0:6:70504438";
 		GregorianCalendar today = new GregorianCalendar();
@@ -22,21 +22,28 @@ public class News {
 		String date = formatter.format(today.getTime());
 		String urldate = "&end_date=" + date;
 
-		URL url = new URL(urlbeg + urldate + urlend);
-		URLConnection connection = url.openConnection();
-		InputStream in = connection.getInputStream();
-		
-		byte b[] = new byte[4096];
-		int n = 1;
-		StringBuilder builder = new StringBuilder();
-		while ((n = in.read(b)) != -1) {
-			builder.append(new String(b, 0, n));
-		}
-		String json = builder.toString();
+		URL url;
+		try {
+			url = new URL(urlbeg + urldate + urlend);
 
-		Gson gson = new Gson();
-		NYTimes news = gson.fromJson(json, NYTimes.class);
-		return news;
+			URLConnection connection = url.openConnection();
+			InputStream in = connection.getInputStream();
+
+			byte b[] = new byte[4096];
+			int n = 1;
+			StringBuilder builder = new StringBuilder();
+			while ((n = in.read(b)) != -1) {
+				builder.append(new String(b, 0, n));
+			}
+			String json = builder.toString();
+
+			Gson gson = new Gson();
+			NYTimes news = gson.fromJson(json, NYTimes.class);
+			return news;
+
+		} catch (IOException e) {
+			return null;
+		}
 
 	}
 
