@@ -38,12 +38,8 @@ public class ISSOverheadFrame extends JFrame {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String address = addressBox.getText();
-				try {
-					String[] times = getTimes(address);
-					timeslist.setListData(times);
-				} catch (IOException io) {
-				}
+				ISSOverheadRequestThread t = new ISSOverheadRequestThread(timeslist, addressBox.getText());
+				t.start();
 			}
 
 		});
